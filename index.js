@@ -1,3 +1,5 @@
+var port = process.env.PORT || 3000;
+
 var express = require('express');
 var app = express();
 var MongoClient = require('mongodb').MongoClient;
@@ -17,6 +19,6 @@ app.post('/message', function (req, res){
   // });
 });
 
-app.listen(3000, function () {
+app.listen(port, function () {
   console.log('Example app listening on port 3000!');
 });

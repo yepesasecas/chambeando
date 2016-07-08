@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "A Slack Integration to know what is everyone 'chambeando'",
   "main": "index.js",
-  "start": "node index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Andres Yepes yepes07@gmail.com",
