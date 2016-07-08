@@ -11,7 +11,7 @@ app.get('/', function (req, res) {
 });
 
 app.post('/message', function (req, res){
-  console.log(req.params);
+  console.log(req);
   // MongoClient.connect(url, function(err, db) {
   //   assert.equal(null, err);
   //   console.log("Connected correctly to server.");
