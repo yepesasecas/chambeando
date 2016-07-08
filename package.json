@@ -1,0 +1,15 @@
+{
+  "name": "chambeando",
+  "version": "1.0.0",
+  "description": "A Slack Integration to know what is everyone 'chambeando'",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andres Yepes yepes07@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongodb": "^2.2.0"
+  }
+}
