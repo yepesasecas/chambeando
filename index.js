@@ -56,8 +56,8 @@ app.post('/message', function (req, res){
 
   newMessage.save(function(err, message){
     if(err) return console.error(err);
-    console.log("message guardado!");
     console.log(newMessage);
+    res.send("Chamba asignada! ahora a chambear!");
   });
 });
 
