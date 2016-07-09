@@ -46,10 +46,8 @@ app.get('/', function (req, res) {
 app.post('/message', function (req, res){
   console.log(req.body);
 
-  Message.find({ user_name: req.body.user_name}, function(err, messages){
-    messages.remove();
-  })
-
+  Message.find({ user_name: req.body.user_name}).remove().exec();
+  
   var newMessage = new Message({
     token: req.body.token,
     user_name: req.body.user_name,
