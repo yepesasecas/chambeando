@@ -37,7 +37,10 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  Message.find(function(err, messages){
+    if(err) return console.error(err);
+    res.send(messages);
+  });
 });
 
 app.post('/message', function (req, res){
