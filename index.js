@@ -2,6 +2,8 @@ var port = process.env.PORT || 3000;
 
 var express = require('express');
 var app = express();
+app.set('view engine', 'ejs');
+
 var assert = require('assert');
 var mongoUrl = process.env.MONGODB_URI ||
                process.env.MONGOLAB_URI ||
@@ -39,7 +41,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.get('/', function (req, res) {
   Message.find(function(err, messages){
     if(err) return console.error(err);
-    res.send(messages);
+    res.render('message/index', { messages: messages});
   });
 });
 
@@ -47,7 +49,7 @@ app.post('/message', function (req, res){
   console.log(req.body);
 
   Message.find({ user_name: req.body.user_name}).remove().exec();
-  
+
   var newMessage = new Message({
     token: req.body.token,
     user_name: req.body.user_name,
