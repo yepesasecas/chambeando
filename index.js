@@ -3,7 +3,8 @@ var port = process.env.PORT || 3000;
 var express = require('express');
 var app = express();
 var assert = require('assert');
-var mongoUrl = process.env.MONGOLAB_URI ||
+var mongoUrl = process.env.MONGODB_URI ||
+               process.env.MONGOLAB_URI ||
                process.env.MONGOHQ_URL ||
                'mongodb://localhost:27017/chambeandoDB';
 var mongoose = require('mongoose');
