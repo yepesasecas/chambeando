@@ -3,11 +3,19 @@ var port = process.env.PORT || 3000;
 var express = require('express');
 var app = express();
 var assert = require('assert');
-var mongoUrl = 'mongodb://localhost:27017/chambeandoDB';
+var mongoUrl = process.env.MONGOLAB_URI ||
+               process.env.MONGOHQ_URL ||
+               'mongodb://localhost:27017/chambeandoDB';
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-mongoose.connect(mongoUrl);
+mongoose.connect(mongoUrl, function(err, res){
+  if (err) {
+    console.log ('ERROR connecting to: ' + mongoUrl + '. ' + err);
+  } else {
+    console.log ('Succeeded connected to: ' + mongoUrl);
+  }
+});
 var db = mongoose.connection;
 var messageSchema = mongoose.Schema({
   token: String,
@@ -21,7 +29,7 @@ var Message = mongoose.model('Message', messageSchema);
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("DB connected");
+  console.log("DB connection open");
 });
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -37,7 +45,7 @@ app.post('/message', function (req, res){
     token: req.body.token,
     user_name: req.body.user_name,
     message: req.body.text,
-    response_url: req.body.response_url
+    response_url: req.body.response_url,
     created_at: Date.now(),
     updated_at: Date.now()
   });
