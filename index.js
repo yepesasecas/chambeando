@@ -41,7 +41,7 @@ app.get('/', function (req, res) {
 
 app.post('/message', function (req, res){
   console.log(req.body);
-  var newMessage = newMessage({
+  var newMessage = new Message({
     token: req.body.token,
     user_name: req.body.user_name,
     message: req.body.text,
