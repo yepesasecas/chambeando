@@ -49,12 +49,26 @@
             <th>updated at</th>
             <th>user</th>
             <th>working on</th>
+            <th>actions</th>
           </tr>
           <% messages.forEach(function(message){ %>
             <tr>
               <td><time class="timeago" datetime=<%= ISODateString(new Date(message.updated_at)) %> ><%= message.updated_at %></time></td>
               <td><%= message.user_name %></td>
               <td><%= message.message %></td>
+              <td>
+                <form action="https://slack.com/api/chat.postMessage"
+                      method="post"
+                      accept-charset="UTF-8"
+                      enctype="application/x-www-form-urlencoded">
+                  <input type="hidden" name="token" value="xoxp-8337250805-8336954500-58800416805-fb073eb78c">
+                  <input type="hidden" name="channel" value=<%= "@" + message.user_name %>>
+                  <input type="hidden" name="text" value="llevas mucho tiempo sin actualizar tu chamba! usa /chambeando y actualiza.">
+                  <input type="hidden" name="user_name" value="chambeandoBOT">
+                  <input type="submit" value="Poke">
+                </form>
+
+              </td>
             </tr>
           <%});%>
         </table>
