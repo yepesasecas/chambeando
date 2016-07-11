@@ -3,6 +3,8 @@ var port = process.env.PORT || 3000;
 var express = require('express');
 var app = express();
 app.set('view engine', 'ejs');
+app.use('/static', express.static(__dirname + '/public'));
+
 
 var assert = require('assert');
 var mongoUrl = process.env.MONGODB_URI ||
@@ -11,6 +13,10 @@ var mongoUrl = process.env.MONGODB_URI ||
                'mongodb://localhost:27017/chambeandoDB';
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+
+var iso8601 = require('iso8601');
+
+
 
 mongoose.connect(mongoUrl, function(err, res){
   if (err) {
@@ -49,20 +55,19 @@ app.post('/message', function (req, res){
   console.log(req.body);
 
   Message.find({ user_name: req.body.user_name}).remove().exec();
-
   var newMessage = new Message({
     token: req.body.token,
     user_name: req.body.user_name,
     message: req.body.text,
     response_url: req.body.response_url,
-    created_at: Date.now(),
-    updated_at: Date.now()
+    created_at: iso8601.fromDate(new Date(Date.now())),
+    updated_at: iso8601.fromDate(new Date(Date.now()))
   });
 
   newMessage.save(function(err, message){
     if(err) return console.error(err);
     console.log(newMessage);
-    res.send("Chamba asignada! ahora a chambear!");
+    res.send("Chamba asignada! ahora a chambear! http://chambeando.herokuapp.com/ ");
   });
 });
 
